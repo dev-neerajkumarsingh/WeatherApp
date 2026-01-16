@@ -1,114 +1,291 @@
-# Weather App
+# OTP Verification - Creative Dock Bootcamp Assignment
 
-# Getting Started
+A React Native OTP (One-Time Password) verification screen built as part of the Creative Dock hiring bootcamp. This project demonstrates clean architecture, reusable components, and attention to UI/UX details.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Install Dependencies
-First, you will need to install 3rd party packages dependencies on the Root of your React Native project
-
-```sh
-# Using npm
-npm install
-
-# OR using Yarn
-yarn
-```
-
-## Step 2: Start Metro
-
-You will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 3: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
+## 📱 Screenshots
 
 ### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+| Light Mode | Dark Mode |
+|:----------:|:---------:|
+| ![iOS Light](./screenshots/ios-light.png) | ![iOS Dark](./screenshots/ios-dark.png) |
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### Android
 
-```sh
-bundle install
+| Light Mode | Dark Mode |
+|:----------:|:---------:|
+| ![Android Light](./screenshots/Android-light.png) | ![Android Dark](./screenshots/Android-dark.png) |
+
+---
+
+## ✨ Features
+
+### Core Features (Assignment Requirements)
+- ✅ **4-Digit OTP Input** - Clean, accessible OTP input with auto-focus navigation
+- ✅ **Verify Button** - Logs OTP to console with mocked network delay
+- ✅ **Resend Timer** - 60-second countdown with disabled state
+- ✅ **Timer Display** - Visual countdown shown while resend is disabled
+
+### Additional Features
+- 🌓 **Dark/Light Theme Support** - Automatic OS theme detection with seamless switching
+- 📱 **Portrait & Landscape Orientation** - Responsive layouts for both orientations
+- ⌨️ **Keyboard Handling** - Smart keyboard avoidance and numeric keyboard
+- 📋 **Auto-fill Support** - SMS OTP auto-fill on both iOS and Android
+- 🔄 **Loading State** - Visual feedback during OTP verification
+- ♿ **Accessibility** - Proper accessibility labels and roles
+- 🎨 **Reusable Components** - Modular component architecture
+
+---
+
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| React Native | Mobile framework |
+| TypeScript | Type safety |
+| React Navigation | Navigation |
+| react-native-keyboard-controller | Keyboard handling |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── CommonBox/          # Screen wrapper with StatusBar handling
+│   ├── CommonButton/       # Reusable button component
+│   ├── CommonOtpInput/     # Reusable OTP input component
+│   ├── CommonText/         # Typography component
+│   ├── CommonLoader/       # Loading indicator
+│   └── index.ts
+├── screens/
+│   └── OtpScreen/          # OTP verification screen
+├── themes/
+│   ├── context/            # Theme context provider
+│   ├── list/
+│   │   ├── lightTheme.ts   # Light theme colors
+│   │   └── darkTheme.ts    # Dark theme colors
+│   └── index.ts
+├── utils/
+│   ├── Pixelate.ts         # Responsive sizing utilities
+│   ├── useOrientation.ts   # Orientation detection hook
+│   └── index.ts
+└── navigation/
+    └── InitialRoute.tsx    # App entry point
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js >= 18
+- React Native development environment ([Setup Guide](https://reactnative.dev/docs/set-up-your-environment))
+- Xcode (for iOS)
+- Android Studio (for Android)
+
+### Installation
+
+1. **Clone the repository**
+   ```sh
+   git clone https://gitlab.com/creativedock1/bootcamp-otp.git
+   cd bootcamp-otp
+   ```
+
+2. **Install dependencies**
+   ```sh
+   # Using npm
+   npm install
+
+   # OR using Yarn
+   yarn install
+   ```
+
+3. **Install iOS dependencies**
+   ```sh
+   bundle install
+   bundle exec pod install
+   ```
+
+### Running the App
+
+1. **Start Metro bundler**
+   ```sh
+   npm start
+   # OR
+   yarn start
+   ```
+
+2. **Run on Android**
+   ```sh
+   npm run android
+   # OR
+   yarn android
+   ```
+
+3. **Run on iOS**
+   ```sh
+   npm run ios
+   # OR
+   yarn ios
+   ```
+
+---
+
+## 🎯 Assignment Acceptance Criteria
+
+| Requirement | Status |
+|-------------|--------|
+| OTP should be 4 digits long | ✅ Completed |
+| Verify button logs 4-digit OTP to console | ✅ Completed |
+| Mock network delay on verification | ✅ Completed |
+| Resend button disabled for 60 seconds | ✅ Completed |
+| Timer visible during countdown | ✅ Completed |
+| Additional features for the use case | ✅ Theme support, orientation handling, accessibility |
+
+---
+
+## 📖 Component Usage
+
+### CommonOtpInput
+
+```tsx
+<CommonOtpInput
+  otpLength={4}
+  otp={otpState}
+  updateOtpValue={(val) => setOtpState(val)}
+  onValidationChange={(isValid) => setIsValid(isValid)}
+/>
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Theme Hook
 
-```sh
-# Using npm
-npm run ios
+```tsx
+const { theme, isDark, setThemeMode } = useTheme();
 
-# OR using Yarn
-yarn ios
+// Access colors
+const backgroundColor = theme.colors.background;
+
+// Check dark mode
+if (isDark) {
+  // Dark mode specific logic
+}
+
+// Change theme
+setThemeMode('light' | 'dark' | 'system');
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Orientation Hook
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```tsx
+const { isPortrait, isLandscape, screenWidth, screenHeight } = useOrientation();
 
-## Step 4: Modify your app
+// Responsive styling
+<View style={isPortrait ? styles.portrait : styles.landscape}>
+```
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 🧪 Testing
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+This project uses **Jest** and **React Native Testing Library** for unit and integration testing.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- To run the unit test using jest, run the following command from the root of your React Native project:
+### Running Tests
 
 ```sh
-# Using npm
-npm test -- --config=jest.config.js
+# Run all tests
+npm test
+# OR
+yarn test
+
+# Run tests in watch mode
+npm test -- --watch
+# OR
+yarn test --watch
+
+# Run tests with coverage
+npm test -- --coverage
+# OR
+yarn test --coverage
+
+# Run specific test file
+npm test -- CommonOtpInput.test.tsx
 ```
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
 
-# Troubleshooting
+### Test Structure
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```
+__tests__/
+├── components/
+│   ├── CommonOtpInput.test.tsx
+│   └── CommonBox.test.tsx
+├── screens/
+│   └── OtpScreen.test.tsx
+├── hooks/
+│   └── useOrientation.test.ts
+├── themes/
+│   └── ThemeContext.test.tsx
+└── utils/
+    └── testUtils.tsx
+```
 
-# Learn More
+### Test Coverage
 
-To learn more about React Native, take a look at the following resources:
+| Component | Coverage |
+|-----------|----------|
+| CommonOtpInput | Input handling, validation, accessibility |
+| OtpScreen | Rendering, timer, verification flow |
+| useOrientation | Portrait/landscape detection |
+| ThemeContext | Theme switching, system detection |
+| CommonBox | StatusBar, loader, scroll handling |
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### Key Test Cases
+
+- ✅ OTP input accepts only numeric values
+- ✅ Auto-focus moves to next input on digit entry
+- ✅ Backspace moves focus to previous input
+- ✅ Paste handling for full OTP
+- ✅ Resend timer countdown (60 seconds)
+- ✅ Timer format displays correctly (00:09)
+- ✅ Theme switching (light/dark/system)
+- ✅ Orientation changes (portrait/landscape)
+- ✅ Accessibility attributes present
+
+---
+
+## 🔧 Troubleshooting
+
+If you encounter issues:
+
+1. **Clear Metro cache**
+   ```sh
+   npm start -- --reset-cache
+   ```
+
+2. **Clean and rebuild**
+   ```sh
+   # Android
+   cd android && ./gradlew clean && cd ..
+
+   # iOS
+   cd ios && rm -rf build Pods Podfile.lock && pod install && cd ..
+   ```
+
+3. **Check React Native docs**
+   - [Troubleshooting Guide](https://reactnative.dev/docs/troubleshooting)
+
+---
+
+## 📄 License
+
+This project is created as part of the Creative Dock hiring bootcamp assignment.
+
+---
+
+## 👤 Author
+
+Built with ❤️ for Creative Dock
